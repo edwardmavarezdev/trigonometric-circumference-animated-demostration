@@ -1,6 +1,8 @@
 
+//var canvas2 = document.getElementByid('canvas2')
 var canvas = document.getElementById("DemoCanvas");
 var ctx = canvas.getContext("2d");
+//var ctx2 = canvas2.getContext('2d');
 
 var c = 0;
 var x = 0;
@@ -8,21 +10,35 @@ var y = 0;
 var interval;
 var speed=4;
 
+var direction;
 var lastValueX
 var lastValueY
 var rotateLine
-var angleA = 0
-var angleB = 90
-var speed = 20
+var angle = 0
+var speed = 40
+var range = 1
+var guideLines=true;
+
+
 
 function drawLineLeft(){
+
+//		lastValueX = parseInt(Math.cos(angle*Math.PI/180)*150+150)
+//		lastValueY = parseInt(Math.sin(angle*Math.PI/180)*150+150)
+	
+
 		clearInterval(rotateLine)
 		direction = 'L'
 		rotateLine = setInterval(Move,speed)
-
+	console.log('')
 }
 
 function drawLineRight(){	
+	
+//		lastValueX = parseInt(Math.cos(angle*Math.PI/180)*150+150)
+//		lastValueY = parseInt(Math.sin(angle*Math.PI/180)*150+150)
+	
+
 		clearInterval(rotateLine)
 		direction = 'R'
 		rotateLine = setInterval(Move,speed)
@@ -33,41 +49,67 @@ function Move(){
 		
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-		x1 = parseInt(Math.cos(angleA*Math.PI/180)*150+150)
-		y1 = parseInt(Math.sin(angleA*Math.PI/180)*150+150)
+		x = parseInt(Math.cos(angle*Math.PI/180)*canvas.width/2+canvas.width/2)
+		y = parseInt(Math.sin(angle*Math.PI/180)*canvas.height/2+canvas.height/2)
 	
-		x2 = parseInt(Math.cos(angleB*Math.PI/180)*150+150)
-		y2 = parseInt(Math.sin(angleB*Math.PI/180)*150+150)
-		
 		
 		ctx.beginPath();
+		ctx.strokeStyle='black'
+		ctx.lineWidth='5';
 		ctx.moveTo(canvas.width/2,canvas.height/2);
-		ctx.lineTo(x1,y1)
+		ctx.lineTo(x,y)
+		ctx.lineTo(x,canvas.height/2)
+		ctx.lineTo(canvas.width/2,canvas.height/2);
 		ctx.stroke();
-		
-		ctx.beginPath();
-		ctx.moveTo(canvas.width/2,canvas.height/2);
-		ctx.lineTo(x2,y2)
-		ctx.stroke();
-	
-	
-		if(direction == 'R'){
-			angleA++;angleB++}
-		else if (direction == 'L'){
-			angleA--;angleB--	
-		}else{}
-	
 
+	/*		
+		ctx.beginPath();
+		ctx.strokeStyle='orange';
+		ctx.lineWidth='10';
+		ctx.moveTo(0,0);
+		ctx.lineTo(canvas.width,0)
+		ctx.lineTo(canvas.width,canvas.height)
+		ctx.lineTo(0,canvas.height)
+		ctx.lineTo(0,0)
+		ctx.stroke();
+	*/	
+
+		ctx.beginPath();
+		ctx.strokeStyle='red';
+		ctx.lineWidth='10';
+		ctx.moveTo(x-6,y);
+		ctx.lineTo(x+6,y)
+		ctx.stroke();
+
+
+			
+			
+		
+		
+		/*
+		ctx.beginPath();
+		ctx.moveTo(lastValueX,lastValueY);
+		ctx.lineTo(x,y)
+		ctx.stroke();
+
+		lastValueX = x
+		lastValueY = y
+	
+	*/	
+		if(direction == 'R'){
+			angle+=range}
+		else if (direction == 'L'){
+			angle-=range
+		}else{}
+}	
+/*
 
 	//	if(angle == 360){clearInterval(rotateLine)
 	
 	//	ctx.moveTo(lastValueX,lastValueY);
-	//	lastValueX = e.offsetX
-	//	lastValueY = e.offsetY
+	//
 		
-		}
-
-
+}
 
 
 canvas.addEventListener('mousedown',onMove)
@@ -87,15 +129,20 @@ function offMove(){
 	console.log('off')
 	//ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height)
 }
+*/
 
 const clear = document.getElementById('clear')
 const drawLeft = document.getElementById('drawLeft')
 const drawRight = document.getElementById('drawRight')
+const stop = document.getElementById('stop')
+
 
 clear.addEventListener('click',erase)
 
 drawLeft.addEventListener('click',drawLineLeft)
 drawRight.addEventListener('click',drawLineRight)
+
+stop.addEventListener('click',stopDraw )
 
 function erase(){
 
@@ -104,6 +151,11 @@ function erase(){
 
 }
 
+function stopDraw(){
+
+	clearInterval(rotateLine)
+
+}
 
 class line{
 	
@@ -126,14 +178,14 @@ class line{
 	360=	
 
 */
-
+/*
 function testAngle(angle){
 	console.log('x = '+(parseInt(Math.cos(angle*Math.PI/180)*150+150)))
 	console.log('y = '+(parseInt(Math.sin(angle*Math.PI/180)*150+150)))
 	
 	
 }
-
+*/
 
 
 /*function qwe(){	
@@ -176,11 +228,11 @@ function testAngle(angle){
 	
 
 
-function rty(){
+//function rty(){
 	
 //
 
-}
+
 /* class Drop{
         constructor(){
           this.x = canvas.width / 2;
@@ -231,3 +283,4 @@ function ind(){
           d.show();
           d.llaf();
         }*/
+
