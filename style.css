@@ -1,9 +1,17 @@
+html,body{
+		
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+
+}
 
 .space{
 	border: green solid 4px;
-	width:40vw;
-	height:40vw;
-	display:inline-block;
+	width:98%;
+	height:100vw;
+	position:relative;
 }
 
 .container{
@@ -11,35 +19,47 @@
 	position:relative;
 	margin:auto;
 	width:100%;
-	height:100%;
-	transition:2s;
-/*	transform: rotate(180deg);
-*/	z-index:-3;
+	height:90vw;
 
 }
 
+#trigonometric{
+	border:solid blue 1px;
+	position:absolute;
+	width: 30vw;
+	height:30vw;
+}
 
-.box{
-	border:solid 0.4vw purple;
-	width:98%;
-	height:98%;
-	border-radius:100%;
+#circumference{
+	border:solid 1px purple;
+	width:30vw;
+	height:30vw;
 	position: absolute;
-	top:0;
-	left:0;
-	transition:1s;
-	z-index:-1;
 }
 
-#DemoCanvas, #canvas2{
+
+
+#sin{
+	border: solid orange 1px;
 	position: absolute;
-	right:0;
-	width:100%;
-	height:100%;
+	left:30vw;
+	width:55vw;
+	height:30vw;
 }
 
-@keyframes rotation{
-	from{transform: rotateX(360deg)};
-	to{transform:rotateX(180deg)};
+#cos{
+	border: solid orange 1px;
+	position: absolute;
+	top:30vw;
+	width:30vw;
+	height:55vw;
 }
+
+.buttonsContainer{
+	position: absolute;
+	top:32vw;
+	left:32vw;
+	z-index:2;
+}
+
 
