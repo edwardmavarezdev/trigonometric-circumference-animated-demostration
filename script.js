@@ -248,8 +248,8 @@ function changeSpeed(e){
 function changeFrequency(e){
 		if(parseInt(e.target.value)<1){
 			e.target.value=1;
-		} else if(parseInt(e.target.value)>100){
-			e.target.value=100;
+		} else if(parseInt(e.target.value)>20){
+			e.target.value=20;
 		}else{
 			frequency =parseInt(e.target.value)
 		}
