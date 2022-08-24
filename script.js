@@ -12,7 +12,7 @@ const cos= document.getElementById('cos');
 const cosCtx = cos.getContext('2d');
 
 
-//circumference corrector
+//circumference continues draw
 let lastValueX
 let lastValueY
 
@@ -36,9 +36,7 @@ let cosGraphic = [[x,0]];
 
 
 function move(){
-		//erase point element	
-		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-		
+	
 		//direcion of draw selector
 		if(direction == 'R'){
 			angle+=range}
@@ -50,7 +48,10 @@ function move(){
 		//setup the position X and Y of the circumference
 		x = parseInt(Math.cos(angle*Math.PI/180)*(0.95*canvas.width/2)+canvas.width/2)
 		y = parseInt(Math.sin(angle*Math.PI/180)*(0.95*canvas.height/2)+canvas.height/2)
-	
+		
+		//erase point element	
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
 		//draw the point of position
 		ctx.beginPath();
 		ctx.strokeStyle='red';

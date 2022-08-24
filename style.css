@@ -1,65 +1,64 @@
 html,body{
 		
 	width:100%;
-	height:100%;
 	margin:0;
 	padding:0;
 
 }
 
 .space{
-	border: green solid 4px;
-	width:98%;
-	height:100vw;
-	position:relative;
+	width:100%;
+	display:flex;
+	align-items: center;
+	height: 100vh;
 }
 
 .container{
 	border:solid 2px blue;
-	position:relative;
-	margin:auto;
-	width:100%;
-	height:90vw;
-
+	margin: auto;
+	width:90vmin;
+	height:90vmin;
+	display:grid;
+	grid-template-columns: 40% 60%;
+	grid-template-rows: 40% 60%;
 }
 
 #trigonometric{
 	border:solid blue 1px;
-	position:absolute;
-	width: 30vw;
-	height:30vw;
+	width: 100%;
+	height:100%;
+	background-color:transparent;
+	grid-column: 1/2;
+	grid-row: 1/2;
+	
 }
 
 #circumference{
 	border:solid 1px purple;
-	width:30vw;
-	height:30vw;
-	position: absolute;
+	width: 100%;
+	height:100%;
+	background-color:transparent;
+	grid-column: 1/2;
+	grid-row: 1/2;
 }
 
 
 
 #sin{
 	border: solid orange 1px;
-	position: absolute;
-	left:30vw;
-	width:55vw;
-	height:30vw;
+	width:100%;
+	height:100%;
 }
 
 #cos{
 	border: solid orange 1px;
-	position: absolute;
-	top:30vw;
-	width:30vw;
-	height:55vw;
+	width:100%;
+	height:100%;
 }
 
 .buttonsContainer{
-	position: absolute;
-	top:32vw;
-	left:32vw;
 	z-index:2;
+	border:solid 2px lime;
 }
 
 
