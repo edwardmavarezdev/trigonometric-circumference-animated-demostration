@@ -13,41 +13,45 @@ const cosCtx = cos.getContext('2d');
 
 
 //circumference continues draw
-let lastValueX
-let lastValueY
+let lastValueX, lastValueY;
 
 //interval declaration and direction declaration
-let rotateLine
-let direction;
+let rotateLine, direction;
 
-//start angle, speed of update render, and range of degrees move
-let angle = 180
-let speed = 50
-let range = 1
+//start angle, speed of update render, and frecuency of degrees move
+let angle = 0;
+let speed = 50;
+let frequency = 2;
 
+//axis coordinates
+let x,y
+
+//circumference trigonometrical ecuation
+function circumferenceCoordinates(){
+	x = parseInt(Math.cos((angle+180)*Math.PI/180)*(0.95*canvas.width/2)+canvas.width/2)
+	y = parseInt(Math.sin((angle+180)*Math.PI/180)*(0.95*canvas.height/2)+canvas.height/2)
+}
 
 //circumference trigonometrical ecuation fisrt state definition
-let x = parseInt(Math.cos(angle*Math.PI/180)*(0.95*canvas.width/2)+canvas.width/2)
-let y = parseInt(Math.sin(angle*Math.PI/180)*(0.95*canvas.height/2)+canvas.height/2)
+circumferenceCoordinates()	
+
 
 // trigonometrical first state definition
 let sinGraphic = [[0,y]];
 let cosGraphic = [[x,0]];
 
 
-function move(){
+function move(direction){
 	
 		//direcion of draw selector
 		if(direction == 'R'){
-			angle+=range}
+			angle+=frequency}
 		else if (direction == 'L'){
-			angle-=range
+			angle-=frequency
 		}else{}
-	
 
 		//setup the position X and Y of the circumference
-		x = parseInt(Math.cos(angle*Math.PI/180)*(0.95*canvas.width/2)+canvas.width/2)
-		y = parseInt(Math.sin(angle*Math.PI/180)*(0.95*canvas.height/2)+canvas.height/2)
+		circumferenceCoordinates()	
 		
 		//erase point element	
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -100,7 +104,7 @@ function move(){
 		// draw the circumference in another canvas
 		circle.beginPath();
 		circle.strokeStyle='purple';
-		circle.lineWidth='6';
+		circle.lineWidth='3';
 		circle.moveTo(lastValueX,lastValueY);
 		circle.lineTo(x,y)
 		circle.stroke();
@@ -112,21 +116,31 @@ function move(){
 		
 		sinCtx.clearRect(0, 0, sinCtx.canvas.width, sinCtx.canvas.height)
 
-		for(i=sinGraphic.length; i>=2; i--){
-
-			
+		for(i=sinGraphic.length; i>=3; i--){
+		/*
+		//draw middle line
 			sinCtx.beginPath();
-			sinCtx.strokeStyle='purple';
-			sinCtx.lineWidth='6';
+			sinCtx.strokeStyle='gray';
+			sinCtx.lineWidth='2';
+			sinCtx.moveTo(0,sin.height/2);
+			sinCtx.lineTo(sin.width, sin.height/2);
+			sinCtx.stroke()
+		*/	
+		//draw sin value
+			sinCtx.beginPath();
+			sinCtx.strokeStyle='red';
+			sinCtx.lineWidth='2';
 			sinCtx.moveTo(sinGraphic[i-1][0],sinGraphic[i-1][1]);
 			sinCtx.lineTo(sinGraphic[i-2][0],sinGraphic[i-2][1]);
 			sinCtx.stroke();
-		}
+
+			}
 		
 			
-		sinGraphic.push([0,y])
+		let sinAxis = parseInt(Math.sin((angle+180)*Math.PI/180)*(0.95*sin.height/2)+sin.height/2)
+		sinGraphic.push([0,sinAxis])
 			
-		if(sinGraphic.length==500){
+		if(sinGraphic.length==sin.width){
 			sinGraphic.shift()
 		}	
 
@@ -138,28 +152,28 @@ function move(){
 	
 		cosCtx.clearRect(0, 0, cosCtx.canvas.width, cosCtx.canvas.height)
 		
-		for(i=cosGraphic.length; i>=2; i--){
+		for(i=cosGraphic.length; i>=3; i--){
 
 			
 			cosCtx.beginPath();
-			cosCtx.strokeStyle='purple';
-			cosCtx.lineWidth='6';
+			cosCtx.strokeStyle='blue';
+			cosCtx.lineWidth='3';
 			cosCtx.moveTo(cosGraphic[i-1][0],cosGraphic[i-1][1]);
 			cosCtx.lineTo(cosGraphic[i-2][0],cosGraphic[i-2][1]);
 			cosCtx.stroke();
 		}
 		
 			
-			cosGraphic.push([x,0])
+		let cosAxis = parseInt(Math.cos((angle+180)*Math.PI/180)*(0.95*cos.width/2)+cos.width/2)
+		cosGraphic.push([cosAxis,0])
 			
-			if(cosGraphic.length==500){
-				cosGraphic.shift()
-			}	
+		if(cosGraphic.length==cos.height){
+			cosGraphic.shift()
+		}	
 
 		for(l=cosGraphic.length; l>0; l--){
 			cosGraphic[l-1][1]++
 		}
-		
 }
 
 
@@ -169,15 +183,25 @@ const drawLeft = document.getElementById('drawLeft')
 const drawRight = document.getElementById('drawRight')
 const stop = document.getElementById('stop')
 
+const speedNumber = document.getElementById('speedNumber')
+speedNumber.value=speed/10;
+
+const frequencyNumber = document.getElementById('frequencyNumber')
+frequencyNumber.value=frequency;
+
+
 //buttons events
-clear.addEventListener('click',erase)
-drawLeft.addEventListener('click',drawLineLeft)
-drawRight.addEventListener('click',drawLineRight)
+clear.addEventListener('click',reset)
+drawLeft.addEventListener('click',()=>{direction='L'; drawLine(direction)})
+drawRight.addEventListener('click',()=>{direction='R'; drawLine(direction)})
 stop.addEventListener('click',stopDraw )
+
+speedNumber.addEventListener('input',changeSpeed)
+frequencyNumber.addEventListener('input',changeFrequency)
 
 //button functions
 
-function erase(){
+function reset(){
 	clearInterval(rotateLine)
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
@@ -186,28 +210,49 @@ function erase(){
 		
 	circle.clearRect(0, 0, circle.canvas.width, circle.canvas.height)
 
+	
+	angle=0;
+	circumferenceCoordinates();
+	
+	lastValueX = x;
+	lastValueY = y;
+	
 	sinGraphic = [[0,y]];
 	cosGraphic = [[x,0]];
 }
 
-function drawLineLeft(){
-		clearInterval(rotateLine)
-		direction = 'L'
-		rotateLine = setInterval(()=>{move()},speed)
-}
-
-
-function drawLineRight(){	
-		clearInterval(rotateLine)
-		direction = 'R'
-		rotateLine = setInterval(move,speed)
-	
+function drawLine(direction){
+		clearInterval(rotateLine);
+		rotateLine = setInterval(()=>{move(direction)},speed);
 }
 
 function stopDraw(){
-
 	clearInterval(rotateLine)
 
+}
+
+function changeSpeed(e){
+	
+	if(parseInt(e.target.value)<1){
+		e.target.value=1;
+	} else if(parseInt(e.target.value)>10){
+		e.target.value=10;
+	}else{
+		speed = 100-parseInt(e.target.value)*10
+		if(direction!=undefined){
+		drawLine(direction)
+		}
+	}
+}
+
+function changeFrequency(e){
+		if(parseInt(e.target.value)<1){
+			e.target.value=1;
+		} else if(parseInt(e.target.value)>100){
+			e.target.value=100;
+		}else{
+			frequency =parseInt(e.target.value)
+		}
 }
 
 
