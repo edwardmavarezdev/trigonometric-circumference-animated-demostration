@@ -2,25 +2,32 @@
 <html>
 	<head>
 		<meta charset='UTF-8'>
-		<title>Globa Line Move</title>
+		<title>Animated Demostration</title>
 		<link rel='stylesheet' href='style.css'>
 	</head>
 	<body>
-		<div  class='space'>
-			<div class='container'>
+		<div  class='container'>
+			<div class='cartesianPlane'>
 				<canvas id="trigonometric" width='300px' height='300px'></canvas>
 				<canvas id='circumference' width='300px' height='300px'></canvas>
 				<canvas id='sin' width='200px' height='200px'></canvas>
 				<canvas id='cos' width='200px' height='200px'></canvas>
 			
 				<div class='buttonsContainer'>	
-					<button id = 'clear'>Clear</button>
-					<button id = 'drawRight'>Play</button>
-					<button id = 'drawLeft'>Reverse</button>
-					<button id = 'stop'>Stop</button>
-					<br>
-					<input id = 'speedNumber' type='number' >speed</button>
-					<input id = 'frequencyNumber' type='number'>frequency</input>
+					<input id = 'stop' type='button' value='Stop'></input>
+					<input id = 'play' type='button' value='Play'></input>
+					<input id = 'reverse' type='button' value='Reverse'></input>
+					<input id = 'clear' type='button' value='Clear'></input>
+					
+					<p class = 'speedTitle'>Speed</p>
+					<input id = 'speedDown' class='down' type = 'button' value='Down'>
+					<div id = 'speedNumber' type='text'></div >
+					<input id = 'speedUp' class='up' type = 'button' value='Up'>
+					
+					<p class = 'frequencyTitle'>Frequency</p>
+					<input id = 'frequencyDown' class='down' type = 'button' value='Down'/>
+					<div id = 'frequencyNumber' type='text'></div>
+					<input id = 'frequencyUp' class='up' type = 'button' value='Up'/>
 
 				<div>
 

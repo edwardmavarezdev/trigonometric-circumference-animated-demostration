@@ -54,27 +54,19 @@ function move(direction){
 		circumferenceCoordinates()	
 		
 		//erase point element	
-		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-
-		//draw the point of position
-		ctx.beginPath();
-		ctx.strokeStyle='red';
-		ctx.lineWidth='10';
-		ctx.moveTo(x-6,y);
-		ctx.lineTo(x+6,y)
-		ctx.stroke();
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
 		//draw the origin to position
 		ctx.beginPath();
 		ctx.strokeStyle='black'
-		ctx.lineWidth='5';
+		ctx.lineWidth='3';
 		ctx.moveTo(canvas.width/2,canvas.height/2);
 		ctx.lineTo(x,y)
 		ctx.stroke();
 
 		// draw the origin triangle relation 
 		ctx.beginPath();
-		ctx.lineWidth='5';
+		ctx.lineWidth='3';
 		ctx.strokeStyle='green'
 		ctx.moveTo(x,y)
 		ctx.lineTo(x,canvas.height/2)
@@ -86,16 +78,16 @@ function move(direction){
 		
 		//x
 		ctx.beginPath();
-		ctx.strokeStyle='grey';
-		ctx.lineWidth='2';
+		ctx.strokeStyle='#777a';
+		ctx.lineWidth='3';
 		ctx.moveTo(x,y);
 		ctx.lineTo(canvas.width,y);
 		ctx.stroke();
 		
 		//y
 		ctx.beginPath();
-		ctx.strokeStyle='grey';
-		ctx.lineWidth='2';
+		ctx.strokeStyle='#777a';
+		ctx.lineWidth='3';
 		ctx.moveTo(x,y);
 		ctx.lineTo(x,canvas.height);
 		ctx.stroke();
@@ -111,7 +103,15 @@ function move(direction){
 		lastValueX = x
 		lastValueY = y
 			
-			
+		//draw the point of position
+		ctx.beginPath();
+		ctx.strokeStyle='red';
+		ctx.lineWidth='10';
+		ctx.moveTo(x-6,y);
+		ctx.lineTo(x+6,y)
+		ctx.stroke();
+
+		
 		//draw sin
 		
 		sinCtx.clearRect(0, 0, sinCtx.canvas.width, sinCtx.canvas.height)
@@ -179,26 +179,56 @@ function move(direction){
 
 //buttons
 const clear = document.getElementById('clear')
-const drawLeft = document.getElementById('drawLeft')
-const drawRight = document.getElementById('drawRight')
+const play = document.getElementById('play')
+const reverse = document.getElementById('reverse')
 const stop = document.getElementById('stop')
 
+//speed
 const speedNumber = document.getElementById('speedNumber')
-speedNumber.value=speed/10;
+speedNumber.innerHTML=speed/10;
+const speedUp = document.getElementById('speedUp');
+const speedDown = document.getElementById('speedDown');
 
+//frequency
 const frequencyNumber = document.getElementById('frequencyNumber')
-frequencyNumber.value=frequency;
+frequencyNumber.innerHTML=frequency;
+const frequencyUp = document.getElementById('frequencyUp');
+const frequencyDown = document.getElementById('frequencyDown');
 
 
 //buttons events
-clear.addEventListener('click',reset)
-drawLeft.addEventListener('click',()=>{direction='L'; drawLine(direction)})
-drawRight.addEventListener('click',()=>{direction='R'; drawLine(direction)})
-stop.addEventListener('click',stopDraw )
+clear.addEventListener('click',reset);
+play.addEventListener('click',()=>{direction='R'; drawLine(direction)});
+reverse.addEventListener('click',()=>{direction='L'; drawLine(direction)});
+stop.addEventListener('click',stopDraw );
 
+//frequency Events Buttons
+speedUp.addEventListener('click',()=>{
+	speedNumber.innerHTML = parseInt(speedNumber.innerHTML)+1;
+	changeSpeed();
+});
+
+speedDown.addEventListener('click',()=>{
+	speedNumber.innerHTML = parseInt(speedNumber.innerHTML)-1;
+	changeSpeed();
+});
+
+
+//frequency Events Buttons
+frequencyUp.addEventListener('click',()=>{
+	frequencyNumber.innerHTML = parseInt(frequencyNumber.innerHTML)+1;
+	changeFrequency();
+});
+
+frequencyDown.addEventListener('click',()=>{
+	frequencyNumber.innerHTML = parseInt(frequencyNumber.innerHTML)-1;
+	changeFrequency();
+});
+
+/*
 speedNumber.addEventListener('input',changeSpeed)
 frequencyNumber.addEventListener('input',changeFrequency)
-
+*/
 //button functions
 
 function reset(){
@@ -231,32 +261,36 @@ function stopDraw(){
 
 }
 
-function changeSpeed(e){
+
+function changeSpeed(){
 	
-	if(parseInt(e.target.value)<1){
-		e.target.value=1;
-	} else if(parseInt(e.target.value)>10){
-		e.target.value=10;
+	if(parseInt(speedNumber.innerHTML)<1){
+		speedNumber.innerHTML=1;
+	} else if(parseInt(speedNumber.innerHTML)>10){
+		speedNumber.innerHTML=10;
 	}else{
-		speed = 100-parseInt(e.target.value)*10
-		if(direction!=undefined){
-		drawLine(direction)
-		}
-	}
-}
-
-function changeFrequency(e){
-		if(parseInt(e.target.value)<1){
-			e.target.value=1;
-		} else if(parseInt(e.target.value)>20){
-			e.target.value=20;
-		}else{
-			frequency =parseInt(e.target.value)
+		speed = 100-parseInt(speedNumber.innerHTML)*10
+			if(direction!=undefined && angle!=0){
+			drawLine(direction)
+			}
 		}
 }
 
+function changeFrequency(){
+	
+	if(parseInt(frequencyNumber.innerHTML)<1){
+		frequencyNumber.innerHTML=1;
+	} else if(parseInt(frequencyNumber.innerHTML)>20){
+		frequencyNumber.innerHTML=20;
+	}else{
+		frequency = parseInt(frequencyNumber.innerHTML)
+		console.log(frequency)
+		}
+}
 
-//old mouse drawer
+
+
+//old mouse drawer and base of ecuation definition and translation.
 /*
 
 	//	if(angle == 360){clearInterval(rotateLine)

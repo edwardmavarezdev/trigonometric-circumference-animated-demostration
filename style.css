@@ -2,18 +2,18 @@ html,body{
 		
 	width:100%;
 	margin:0;
-	padding:0;
 
 }
 
-.space{
+.container{
+	padding:0;
 	width:100%;
 	display:flex;
 	align-items: center;
 	height: 100vh;
 }
 
-.container{
+.cartesianPlane{
 	border:solid 2px blue;
 	margin: auto;
 	width:90vmin;
@@ -24,17 +24,15 @@ html,body{
 }
 
 #trigonometric{
-	border:solid blue 1px;
 	width: 100%;
 	height:100%;
 	background-color:transparent;
 	grid-column: 1/2;
 	grid-row: 1/2;
-	
+	outline:solid black 2px;
 }
 
 #circumference{
-	border:solid 1px purple;
 	width: 100%;
 	height:100%;
 	background-color:transparent;
@@ -45,20 +43,90 @@ html,body{
 
 
 #sin{
-	border: solid orange 1px;
 	width:100%;
 	height:100%;
 }
 
 #cos{
-	border: solid orange 1px;
 	width:100%;
 	height:100%;
 }
 
+#trigonometric, #circumference, #sin, #son{
+
+}
+
+/*all buttons section*/
+
 .buttonsContainer{
 	z-index:2;
-	border:solid 2px lime;
+	border:solid 2px purple;
+	margin:0;
+	padding:5%;
+	text-align:center;
 }
 
 
+.buttonsContainer input{
+	width:20%;
+	padding:4% 0;
+}
+
+#reverse{
+	width: 30%;
+}
+
+
+.speedTitle, .frequencyTitle, #speedNumber, #frequencyNumber{
+	border: solid blue 2px;
+	border-radius:1vw;
+}
+
+
+
+#speedNumber, #frequencyNumber{
+	width:20%;
+	display:inline-block;
+	font-size:135%;
+
+}
+
+.speedTitle, .frequencyTitle{
+	text-align:center;
+}
+
+.down, .up{
+	width:34%;
+}
+
+/*
+#clear{
+grid-column: 1/3;
+}
+
+#play{
+grid-column: 3/5;
+}
+#reverse{
+grid-column: 5/7;
+
+}
+#stop{
+grid-column: 7/9;
+}
+
+.speedTitle, .frequencyTitle{
+	grid-column: 1/9;
+}
+
+.down{
+grid-column: 1/4;
+}
+
+#speedNumber, #frequencyNumber{
+	grid-column: 4/6;	
+}
+
+.up{
+grid-column: 6/9;
+}*/
